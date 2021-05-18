@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf7219bab7fe46a1ad266029b2fee19, type: 3}
+  m_Name: Readme
+  m_EditorClassIdentifier: 
+  icon: {fileID: 2800000, guid: 7801804018a7dcf42abb827444e18660, type: 3}
+  title: Demo - Oil Painting Effect for URP
+  sections:
+  - heading: Oil Painting Effect
+    text: 'This demo contains a sample scene based on the URP template, a custom Renderer Feature, and shaders to implement a painterly post-processing effect.'
+    linkText:
+    url:
+  - heading:
+    text: 'This demo accompanies '
+    linkText: the tutorial on my blog.
+    url: https://danlivings.co.uk/blog/oil-painting-effect-shader-unity
+  - heading: Files
+    text: 'The <b><color=orange>OilPaintingEffect</color></b> class is a custom Renderer Feature that configures the required materials and queues the render pass.'
+    linkText: 
+    url: 
+  - heading:
+    text: 'The <b><color=orange>OilPaintingEffectPass</color></b> class handles the implementation of the custom render pass. It sets up material properties and temporary render textures, and instructs the GPU to perform the shader passes.'
+    linkText: 
+    url: 
+  - heading:
+    text: 'The <b><color=orange>StructureTensor</color></b> shader is executed first. This shader outputs the direction of the image gradient as a unit vector and as an angle, as well as a value indicating the anisotropy of the image gradient at that pixel.'
+    linkText: 
+    url: 
+  - heading: 
+    text: 'The <b><color=orange>AnisotropicKuwaharaFilter</color></b> shader is executed next. It uses the structure tensor to transform the filter kernel, which results in a simplification of the input image with flat areas of colour that follow features in the input image. The number of iterations is configurable to produce a trade-off between a more painterly effect and faster execution.'
+    linkText:
+    url:
+  - heading: 
+    text: 'The <b><color=orange>LineIntegralConvolution</color></b> shader is then executed. Line integral convolution is a method of visualising vector fields, which is used here to combine the structure tensor with a noise texture to produce a texture that mimics directional brush stroke detail.'
+    linkText:
+    url:
+  - heading: 
+    text: 'The <b><color=orange>OilPaintingEffectCompositor</color></b> shader is the final step, and combines the filtered image, the brush detail texture, and depth information to render the final result.'
+    linkText:
+    url:
+  loadedLayout: 1
