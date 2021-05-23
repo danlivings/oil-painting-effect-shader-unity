@@ -8,7 +8,7 @@ Shader "Hidden/Oil Painting/Structure Tensor"
     {
         Tags { "RenderType"="Opaque" }
         LOD 200
-
+    
         Pass
         {
             HLSLPROGRAM
@@ -17,10 +17,10 @@ Shader "Hidden/Oil Painting/Structure Tensor"
             
             #define PIXEL_X (_ScreenParams.z - 1)
             #define PIXEL_Y (_ScreenParams.w - 1)
-
+    
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
-
+    
             struct Attributes
             {
                 float4 positionOS : POSITION;
@@ -104,7 +104,7 @@ Shader "Hidden/Oil Painting/Structure Tensor"
 
                 return col / norm;
 			}
-
+    
             half4 frag(Varyings input) : SV_Target
             {
                 float3 t = SmoothedStructureTensor(input.uv, 2.0f);
@@ -121,10 +121,10 @@ Shader "Hidden/Oil Painting/Structure Tensor"
                 
                 return half4(direction, angle, anisotropy);
             }
-            
+    
             #pragma vertex vert
             #pragma fragment frag
-
+    
             ENDHLSL
         }
     }

@@ -129,8 +129,9 @@ Shader "Hidden/Oil Painting/Compositor"
                 float bumpAbove = GetHeight(input.uv + float2(0, PIXEL_Y));
                 float bump = GetHeight(input.uv);
 
-                float diff = pow(saturate(bump - bumpAbove), _BumpPower);
-                
+                float diff = bump - bumpAbove;
+                diff = sign(diff) * pow(saturate(abs(diff)), _BumpPower);
+
                 return half4(baseColor + baseColor * diff * _BumpIntensity, 0);
             }
 

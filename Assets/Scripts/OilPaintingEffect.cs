@@ -37,7 +37,7 @@ public class OilPaintingEffect : ScriptableRendererFeature
         var kuwaharaFilterMaterial = CoreUtils.CreateEngineMaterial("Hidden/Oil Painting/Anisotropic Kuwahara Filter");
         var lineIntegralConvolutionMaterial = CoreUtils.CreateEngineMaterial("Hidden/Oil Painting/Line Integral Convolution");
         var compositorMaterial = CoreUtils.CreateEngineMaterial("Hidden/Oil Painting/Compositor");
-        
+
         renderPass = new OilPaintingEffectPass(structureTensorMaterial,
                                                kuwaharaFilterMaterial,
                                                lineIntegralConvolutionMaterial,

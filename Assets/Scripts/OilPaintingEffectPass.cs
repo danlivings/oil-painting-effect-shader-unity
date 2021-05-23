@@ -3,14 +3,13 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class OilPaintingEffectPass : ScriptableRenderPass
-{  
-    RenderTargetIdentifier source;
+{
+    private RenderTargetIdentifier source;
+    private RenderTargetIdentifier destination;
 
-    RenderTexture structureTensorTex;
-    RenderTexture kuwaharaFilterTex;
-    RenderTexture edgeFlowTex;
-
-    RenderTargetIdentifier destination;
+    private RenderTexture structureTensorTex;
+    private RenderTexture kuwaharaFilterTex;
+    private RenderTexture edgeFlowTex;
 
     private readonly Material structureTensorMaterial;
     private readonly Material kuwaharaFilterMaterial;
@@ -71,12 +70,11 @@ public class OilPaintingEffectPass : ScriptableRenderPass
         var renderer = renderingData.cameraData.renderer;
 
         source = renderer.cameraColorTarget;
+        destination = renderer.cameraColorTarget;
 
         structureTensorTex = RenderTexture.GetTemporary(blitTargetDescriptor.width, blitTargetDescriptor.height, 0, RenderTextureFormat.ARGBFloat);
         kuwaharaFilterTex = RenderTexture.GetTemporary(blitTargetDescriptor);
         edgeFlowTex = RenderTexture.GetTemporary(blitTargetDescriptor.width, blitTargetDescriptor.height, 0, RenderTextureFormat.RFloat);
-
-        destination = renderer.cameraColorTarget;
     }
 
     public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
@@ -86,7 +84,6 @@ public class OilPaintingEffectPass : ScriptableRenderPass
         Blit(cmd, source, structureTensorTex, structureTensorMaterial, -1);
 
         kuwaharaFilterMaterial.SetTexture("_StructureTensorTex", structureTensorTex);
-        lineIntegralConvolutionMaterial.SetTexture("_StructureTensorTex", structureTensorTex);
 
         Blit(cmd, source, kuwaharaFilterTex, kuwaharaFilterMaterial, -1);
         for (int i = 0; i < kuwaharaFilterIterations - 1; i++)

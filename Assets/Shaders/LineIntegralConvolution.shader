@@ -12,13 +12,13 @@ Shader "Hidden/Oil Painting/Line Integral Convolution"
     {
         Tags { "RenderType"="Opaque" }
         LOD 200
-
+    
         Pass
         {
             HLSLPROGRAM
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
-            
+
             #define SCREEN_WIDTH _ScreenParams.x
             #define SCREEN_HEIGHT _ScreenParams.y
             #define SCREEN_SIZE _ScreenParams.xy
@@ -26,7 +26,7 @@ Shader "Hidden/Oil Painting/Line Integral Convolution"
             #define PIXEL_Y (_ScreenParams.w - 1)
 
             #define MAX_LENGTH 64
-
+    
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
 
@@ -36,7 +36,7 @@ Shader "Hidden/Oil Painting/Line Integral Convolution"
 
             int _StreamLineLength;
             float _KernelStrength;
-
+    
             struct Attributes
             {
                 float4 positionOS : POSITION;
@@ -45,7 +45,7 @@ Shader "Hidden/Oil Painting/Line Integral Convolution"
     
             struct Varyings
             {
-                float2 uv : TEXCOORD0;
+                float2 uv     : TEXCOORD0;
                 float4 vertex : SV_POSITION;
             };
     
@@ -108,7 +108,7 @@ Shader "Hidden/Oil Painting/Line Integral Convolution"
 
                 return uv + (k1 / 6.0f) + (k2 / 3.0f) + (k3 / 3.0f) + (k4 / 6.0f);
 			}
-
+    
             half4 frag(Varyings input) : SV_Target
             {
                 // Compute stream line
@@ -159,10 +159,10 @@ Shader "Hidden/Oil Painting/Line Integral Convolution"
 
                 return half4(integral, 0);
             }
-
+    
             #pragma vertex vert
             #pragma fragment frag
-
+    
             ENDHLSL
         }
     }
